@@ -2,6 +2,7 @@ package com.pedromaironi.appverification.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,13 +13,14 @@ import androidx.work.Data;
 
 import com.pedromaironi.appverification.AutoUpdateApk;
 import com.pedromaironi.appverification.R;
+import com.pedromaironi.appverification.services.NotificationHelper;
 
 public class MainActivity extends AppCompatActivity {
 
     AutoUpdateApk AUA;
     String URL;
     public static final String KEY_TASK_DESC = "key_task_desc";
-
+    NotificationHelper nc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         URL = "http://updateapk.pedromaironi.com/checkversion.json";
 //        AUA = new AutoUpdateApk(this, URL);
 
-
+        nc = new NotificationHelper(this);
+        nc.createNotification("hola", "gds");
         Data data = new Data.Builder()
                 .putString(KEY_TASK_DESC, "Hey I am sending the work data")
                 .build();

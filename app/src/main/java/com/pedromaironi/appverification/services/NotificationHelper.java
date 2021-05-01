@@ -1,5 +1,6 @@
 package com.pedromaironi.appverification.services;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 //import android.support.v4.app.NotificationCompat;
 
 import androidx.core.app.NotificationCompat;
@@ -26,7 +28,6 @@ public class NotificationHelper {
     public NotificationHelper(Context context) {
         mContext = context;
     }
-
     /**
      * Create and push the notification
      */
@@ -35,6 +36,8 @@ public class NotificationHelper {
         /**Creates an explicit intent for an Activity in your app**/
         Intent resultIntent = new Intent(mContext , MainActivity.class);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        NotificationManager manager =
+                (NotificationManager) mContext.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext,
                 0 /* Request code */, resultIntent,
@@ -43,7 +46,10 @@ public class NotificationHelper {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O){
             mBuilder = new NotificationCompat.Builder(mContext);
         } else {
-
+            NotificationChannel channel = new NotificationChannel("channel1000", "Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+            mBuilder = new NotificationCompat.Builder(mContext, channel.getId());
+            Log.d("Notification id", channel.getId());
         }
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle(title)
