@@ -1,0 +1,10 @@
+{
+  "package": {
+    "downloadUrl": "https://firebasestorage.googleapis.com/v0/b/apiversion-e8697.appspot.com/o/SYSNotesDEMO.apk?alt=media&token=e6f90532-b72f-4f18-ac0b-b46640ffabea"
+  },
+  "0.1": {
+    "versionCode": 1,
+    "changelog": ["fixed crash"]
+  }
+}
+
