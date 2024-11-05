@@ -33,8 +33,9 @@ jobs:
         run: |
           ./gradlew clean assembleRelease
 
-      - name: Upload
+      - name: Upload release
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: Attest
-          path: app/build/intermediates/dex/release/*/classes.dex
+            name: ABC
+            path: "app/build/outputs/apk/release/*-release*.apk"
